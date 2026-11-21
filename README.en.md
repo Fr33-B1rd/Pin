@@ -63,14 +63,6 @@ Window relationships and event handling live in `src/PinManager.cs`. For drag an
 - Exclusive full-screen games and some UWP windows may not work with Pin.
 - After you switch virtual desktops, a pin head may take about half a second to catch up.
 
-## Manual checks
-
-- Pin Notepad to a browser. Move, minimize, and restore the browser. Check that Notepad follows. Minimize Notepad separately, switch apps, then activate the browser again.
-- Pin Calculator to Notepad to make a three-window group. Click the browser and check the stacking order. Trying to pin the browser to Calculator should show a red outline and reject the cycle.
-- Pin a window to the desktop and press **Win+D**. Check that you can click the window. Repeat in widget mode.
-- With a pin attached, choose Chinese from the tray and English from the pin box. Reopen the menu after each change and check the labels and pinned pair. Restart Pin to check the saved language, then reattach any windows you need.
-- Move a pinned window between monitors with different scaling and check the pin head’s size and position. Drag the head back to the box to remove it.
-
 ## License
 
 [MIT](LICENSE)
