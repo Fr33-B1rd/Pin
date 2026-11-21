@@ -55,25 +55,30 @@ internal class LayeredWindow : Form
     /// <summary>Show <paramref name="bmp"/> (32bpp ARGB) with its top-left at <paramref name="screenPos"/>.</summary>
     public void Present(Bitmap bmp, Point screenPos)
     {
+        var hBmp = bmp.GetHbitmap(Color.FromArgb(0));
+        try { Present(hBmp, bmp.Size, screenPos); }
+        finally { DeleteObject(hBmp); }
+    }
+
+    protected void Present(IntPtr hBmp, Size dimensions, Point screenPos)
+    {
         if (!IsHandleCreated) CreateHandle();
         var screenDc = GetDC(IntPtr.Zero);
         var memDc = CreateCompatibleDC(screenDc);
-        var hBmp = bmp.GetHbitmap(Color.FromArgb(0));
         var old = SelectObject(memDc, hBmp);
         try
         {
-            var size = new SIZE(bmp.Width, bmp.Height);
+            var size = new SIZE(dimensions.Width, dimensions.Height);
             var src = new POINT(0, 0);
             var dst = new POINT(screenPos.X, screenPos.Y);
             var blend = new BLENDFUNCTION { BlendOp = AC_SRC_OVER, SourceConstantAlpha = 255, AlphaFormat = AC_SRC_ALPHA };
             UpdateLayeredWindow(Handle, screenDc, ref dst, ref size, memDc, ref src, 0, ref blend, ULW_ALPHA);
             ScreenPos = screenPos;
-            PixelSize = new Size(bmp.Width, bmp.Height);
+            PixelSize = dimensions;
         }
         finally
         {
             SelectObject(memDc, old);
-            DeleteObject(hBmp);
             DeleteDC(memDc);
             ReleaseDC(IntPtr.Zero, screenDc);
         }
