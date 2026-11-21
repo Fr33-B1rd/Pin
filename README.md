@@ -1,101 +1,86 @@
 # <img src="docs/images/pin-chalk.png" width="440" alt="Pin">
 
-<a href="README.md"><img src="docs/images/zh-active.png" width="94" alt="简体中文"></a> <a href="README.en.md"><img src="docs/images/en.png" width="94" alt="English"></a>
+<a href="README.md"><img src="docs/images/en-active.png" width="94" alt="English"></a> <a href="README.zh-CN.md"><img src="docs/images/zh.png" width="94" alt="简体中文"></a>
 
-从图钉盒里拖出一颗图钉，松手的地方：**最上层的窗口是“纸”，它下面那个窗口是“墙”**（下面没有窗口就是桌面）。
-之后只要两个窗口都在，激活其中任何一个，另一个都会一起出现，并保持“纸在墙上面”的层级。
+**Keep your notes with the window you’re working in.**
 
-![会议笔记钉在项目看板上，蓝框标出笔记，橙框标出看板。](docs/images/pinned-pair.png)
+Pin is a Windows utility that keeps one window above another. Pin your notes to VS Code, switch to your calendar, then click VS Code again. Your notes come forward with the editor, still on top of it. Other apps can cover both while you work elsewhere.
 
-## 运行
+![A calendar covers the pinned notes. Returning to the project board brings the notes back above it.](docs/images/window-group.gif)
 
-从 [Releases](https://github.com/Fr33-B1rd/Pin/releases/latest) 下载 `Pin.exe` 并双击运行。若从源码构建，双击 `publish\Pin.exe` 即可运行，所需的 .NET 桌面运行时已包含在发布文件中。
+## Get started
 
-从源码运行或重新发布需要 .NET 10 SDK。下面的脚本优先使用 `%LOCALAPPDATA%\Programs\Pin-dotnet` 中的 SDK，也支持通过 PATH 使用系统安装的 SDK。
+[Download Pin.exe for Windows x64](https://github.com/Fr33-B1rd/Pin/releases/latest/download/Pin.exe) and double-click it. The .NET desktop runtime is included. Look for the pin box near the bottom-right corner of your screen.
 
-```bat
-run.bat                 :: 等价于 dotnet run -c Release
-publish.bat             :: 生成单文件 publish\Pin.exe
-```
+1. Place a notes window partly over your editor.
+2. Drag a pin from the box onto the overlap. Blue marks the front window (the **paper**). Amber marks the window underneath (the **wall**).
+3. Release, switch to another app, then click the editor. Both windows come forward, with the notes above the editor.
 
-启动后右下角会出现一个**图钉盒**，托盘里有一个图钉图标。
+![Meeting notes pinned to the project board, with the paper outlined in blue and the wall in amber.](docs/images/pinned-pair.png)
 
-## 操作
+## Ways to use Pin
 
-| 操作 | 效果 |
-|---|---|
-| 从图钉盒**拖出**图钉 → 松手 | 钉住：落点处最上层窗口 = 纸（蓝框），它下面的窗口 = 墙（橙框） |
-| 落点下面没有别的窗口 | 钉在**桌面**：平时位于应用窗口下面；点击任务栏“显示桌面”时，仍显示在桌面上 |
-| 拖到图钉盒上 / 拖到空白处松手 | 取消 |
-| 拖动途中按 Esc 或右键 | 取消 |
-| **单击**窗口上的图钉头 | 闪一下，显示它钉在哪 |
-| **拖动**图钉头 | 拔出来：拖到别的窗口上 = 改钉；拖到空白处或图钉盒 = 拔掉 |
-| **右键**图钉头 | 跟随墙移动 / 随墙最小化 / 拔出 |
-| Ctrl + 拖动图钉盒 | 移动图钉盒 |
-| 双击托盘图标 | 显示/隐藏图钉盒 |
+- **Read and take notes.** Pin your notes to a browser. By default, moving or minimizing the browser carries the notes with it. Right-click the pin to change either setting.
+- **Keep a set of tools together.** Attach a reference window and a checklist to the same editor, or pin a calculator to the checklist. Activating any member brings the group forward in order.
+- **Keep a timer on the desktop.** Pin the timer to the desktop and press **Win+D** to see it. Enable desktop widget mode if you also want to hide its separate taskbar button.
 
-支持**多级**（A 钉在 B 上，B 再钉在 C 上），结构是一棵树：一张纸只能钉在一面墙上，一面墙可以钉多张纸。会形成循环的钉法会被拒绝，并显示红框。
+## Language
 
-## 行为规则
+Right-click either the tray icon or the pin box and open **语言 / Language**. The default, **Follow system**, uses Simplified Chinese for a Chinese Windows display language and English otherwise. Select **简体中文** or **English** to override it. Switching takes effect immediately and keeps your current pins in place. Pin remembers the language the next time you start it.
 
-- **激活树里任何一个窗口** → 整棵树一起浮到最上面，顺序为 墙 → 纸 → 纸上的纸。
-- **墙最小化** → 纸跟着最小化；**墙还原** → 纸也还原。
-- **纸被单独最小化后，再激活墙** → 纸会自动弹出（即“打开其中一个，另一个自动弹出”）。刚最小化的 0.8 秒内不会弹回。
-- **墙移动** → 纸跟着平移，以墙的左上角为锚点。最大化和还原时不跟随，避免纸被甩出屏幕。
-- **墙是置顶窗口** → 纸也会被设为置顶，拔出时恢复。
-- **任一窗口关闭** → 这颗图钉自动拔出。
+## Controls
 
-右键窗口上的图钉头，打开 **图钉颜色**，可为这颗图钉选择红、绿、蓝、黄。默认「跟随模式」：普通图钉为红色，桌面挂件为蓝色。手动选色后会保留到拔钉，也可以随时选回「跟随模式」。
- 
-![图钉右键菜单，可选颜色、跟随移动、同步最小化或拔出。](docs/images/pin-options.png)
+| Action | Result |
+| --- | --- |
+| Drop a fresh pin on a window with only the desktop underneath | Attach that window to the desktop. |
+| Press Esc or right-click while dragging | Cancel the drag. |
+| Drop a fresh pin on empty space or back in the box | Return it unused. |
+| Drag an attached pin head to another window | Reattach the pin at the new location. |
+| Drop an attached pin on empty space or in the box | Remove the pin. |
+| Right-click a pin head | Change its color, adjust how the paper follows its wall, or remove the pin. |
+| Ctrl+drag the pin box | Move the box. |
+| Double-click the tray icon | Show or hide the box. |
+| Right-click the tray icon or the box | View pinned pairs, change the language, or exit. |
 
-### 可选的桌面挂件模式
+Under **Pin color**, choose red, green, blue, or yellow. **Use mode color** gives ordinary pins a red head and desktop widgets a blue head. A custom color lasts until you remove the pin or select **Use mode color** again.
 
-先将窗口钉到桌面，再右键图钉头，勾选 **桌面挂件模式（隐藏独立任务栏入口）**。也可以右键图钉盒，在对应窗口的子菜单中切换。默认使用普通桌面绑定。
+![The pin menu offers color, movement, minimize, and removal options.](docs/images/pin-options.png)
 
-挂件随桌面一起出现，保留窗口的最小化按钮。钉住期间可能没有独立任务栏入口；可在桌面上点击窗口输入。再次点击菜单项可退回普通桌面绑定，拔钉或退出 Pin 也会解除挂件。已有所有者的窗口不支持此模式。
+## How pinned windows behave
 
-## 界面语言
+Each paper can have one wall. A wall can hold several papers and can itself be pinned to another window. Activating any window in the group brings the group forward, with each paper above its wall. Pin rejects attachments that would form a loop.
 
-右键托盘图标或图钉盒，打开 **语言 / Language**，可选「跟随系统」、简体中文或 English。切换立即生效并记住选择。
+By default, moving the wall moves its paper by the same distance. Maximizing or restoring the wall skips this movement. Minimizing and restoring the wall also minimizes and restores its paper. Right-click the pin head to change **Move with the wall** or **Minimize with the wall** individually. If you minimize the paper on its own, activating the wall can bring it back after a short grace period.
 
-## 代码结构
+A paper attached to an always-on-top wall inherits that setting until you remove the pin. Closing either window removes its attachment. Exiting Pin releases all pins, so reattach the windows you need after a restart.
 
-```
-src/
-  Program.cs          单实例 + PerMonitorV2 DPI
-  TrayContext.cs      托盘、菜单、组装
-  PinManager.cs       ★ 核心：钉的关系树、SetWinEventHook 监听、层级堆叠 RaiseTree、跟随移动、最小化同步
-  DragSession.cs      拖图钉：鼠标轮询、纸/墙判定、高亮、落钉
-  PinDecal.cs         钉在窗口上的图钉头（点击/拔出/右键菜单）
-  Dispenser.cs        图钉盒
-  HighlightOverlay.cs 目标窗口描边
-  LayeredWindow.cs    逐像素透明、永不抢焦点的窗口基类（UpdateLayeredWindow）
-  PinArt.cs           图钉矢量绘制
-  Win.cs / Native.cs  窗口查询与 Win32 P/Invoke
-```
+### Desktop widget mode
 
-核心思路：关系保存在 `Dictionary<纸, Pin{墙}>` 里。全局监听这些事件：前台切换、最小化、位置变化、销毁、隐藏。
-涉及某棵树时，按“墙在下、纸在上”的先序依次 `SetWindowPos(HWND_TOP, SWP_NOACTIVATE)`，只调整层级，不抢焦点。
+An ordinary desktop pin keeps its window below other apps and brings it into view with **Show desktop**. To use the window as a widget, right-click its pin head and select **Desktop widget mode (hide separate taskbar button)**. This option also appears under the window’s entry in the pin box menu.
 
-## 已知限制（原型阶段）
+You can click and type in the widget on the desktop. Its minimize button remains available, and its separate taskbar button may disappear. Select the option again to return to ordinary desktop pinning. Windows that already have an owner cannot use widget mode.
 
-- **以管理员身份运行的窗口**：普通权限的 Pin 动不了它们（UIPI），会弹提示。需要的话请以管理员身份运行 Pin。
-- **只认当前会话中的窗口**：程序关掉重开，或 Pin 退出后，关系不会保留。下一步可以用“进程名 + 窗口类 + 标题”做持久化，等窗口重新出现时自动重新绑定。
-- 用户点击时，Windows 会先把窗口提到最前，Pin 再把纸提上去，所以偶尔能看到一帧闪烁。
-- 全屏独占的游戏，以及部分 UWP 的特殊窗口，可能管不了。
-- 虚拟桌面之间切换时，图钉头靠 0.5 秒一次的巡检来同步，可能会有短暂延迟。
+## Run or build from source
 
-## 建议的测试清单
+Install the .NET 10 SDK. The scripts first look in `%LOCALAPPDATA%\Programs\Pin-dotnet`, then use the SDK on your PATH. From the project directory, run `run.bat` to start Pin in Release mode or `publish.bat` to build the self-contained executable at `publish\Pin.exe`.
 
-1. 记事本钉到浏览器上，点浏览器 → 记事本跟着浮上来。
-2. 拖动浏览器 → 记事本跟着走；最小化浏览器 → 记事本一起最小化；还原 → 一起回来。
-3. 单独最小化记事本，切到别的程序，再点浏览器 → 记事本自动弹出。
-4. 计算器钉到记事本上，形成三级 → 点浏览器，三个窗口按顺序叠起来。
-5. 把浏览器钉到计算器上 → 应显示红框并拒绝（会形成循环）。
-6. 拖窗口上的图钉头到空白处 → 拔出。
-7. 两个缩放比例不同的显示器之间拖动 → 图钉大小和位置正确。
+Window relationships and event handling live in `src/PinManager.cs`. For drag and drop, see `src/DragSession.cs`. For the attached pin head, see `src/PinDecal.cs`. The tray and pin box share menus through `src/TrayContext.cs`. Interface text and the language preference live in `src/UiText.cs`.
 
-## 许可证
+## Known limitations
+
+- To pin a window running as administrator, start Pin as administrator too.
+- Windows may briefly raise a wall before Pin puts its paper back above it, causing a visible flicker.
+- Exclusive full-screen games and some UWP windows may not work with Pin.
+- After you switch virtual desktops, a pin head may take about half a second to catch up.
+
+## Manual checks
+
+- Pin Notepad to a browser. Move, minimize, and restore the browser. Check that Notepad follows. Minimize Notepad separately, switch apps, then activate the browser again.
+- Pin Calculator to Notepad to make a three-window group. Click the browser and check the stacking order. Trying to pin the browser to Calculator should show a red outline and reject the cycle.
+- Pin a window to the desktop and press **Win+D**. Check that you can click the window. Repeat in widget mode.
+- With a pin attached, choose Chinese from the tray and English from the pin box. Reopen the menu after each change and check the labels and pinned pair. Restart Pin to check the saved language, then reattach any windows you need.
+- Move a pinned window between monitors with different scaling and check the pin head’s size and position. Drag the head back to the box to remove it.
+
+## License
 
 [MIT](LICENSE)
